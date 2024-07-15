@@ -7,6 +7,7 @@ $route['/'] = 'items/index';
 $route['items/(:num)'] = 'items/get_item/$1';
 $route['items/sort']   = 'items/sort';
 $route['items/sort_task']   = 'items/sort_task';
+$route['items/change_key_permission']   = 'items/change_key_permission';
 
 $route['items/export'] = 'items/export';
 $route['items/export-sample-file'] = 'items/export_sample_file';

@@ -73,7 +73,7 @@
                     <?php
                     $isCheck = $this->db->get_where('config', ['key' => 'searchdepartment'])->row();
                     ?>
-                    <input id="search-department-invite-to-project" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban" <?= !$isCheck || $isCheck->value != 1 ? "hidden" : ""?>>
+                    <input id="search-department-invite-to-project" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban" <?= !$isCheck || $isCheck->value != 1 ? "hidden" : "" ?>>
 
                     <input id="search-users-to-invite-project" type="text" class="form-control" placeholder="Tìm kiếm username hoặc email">
 
@@ -100,7 +100,6 @@
 
         //Add user to project
         $(document).on("click", ".add-user-to-project", function() {
-
             if (is_owner) {
                 $.ajax({
                     url: "<?= base_url('items/add_owner') ?>",
@@ -122,7 +121,6 @@
         });
 
         $('.btn-search-owners-modal').click(function() {
-
             loadOwners();
         });
 
@@ -156,12 +154,6 @@
                         $('.project-members-list-search').empty();
                         var users = response.data;
                         $.each(users, function(key, user) {
-                            // var row = '<div class="project-member-item-info">' +
-                            //     '<button type="button" data-item_id="<?= $item_id ?>" data-user_id="' + user.id + '" class="add-user-to-project list-group-item list-group-item-action p-2">' +
-                            //     '<img src="<?= base_url() ?>' + user.avatar + '" alt="">' +
-                            //     '<span>' + user.firstname + ' ' + user.lastname + '</span>' +
-                            //     '</button>'
-                            // '</div>';
 
                             var row = '<button type="button" data-item_id="<?= $item_id ?>" data-user_id="' + user.id + '" class="add-user-to-project list-group-item list-group-item-action p-2 col-10">' +
                                 '<div class="project-member-item-info">' +
@@ -293,39 +285,65 @@
             }
         });
 
-    });
+        function loadOwners(item_id) {
+            $.ajax({
+                url: "<?= base_url('items/get_owners') ?>",
+                method: "get",
+                data: {
+                    item_id: <?= $item_id ?>,
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success && response.data.length > 0) {
+                        $('.project-members-list').empty();
+                        var owners = response.data;
+                        let isOwnerOfGroup = true;
 
-    function loadOwners(item_id) {
-        $.ajax({
-            url: "<?= base_url('items/get_owners') ?>",
-            method: "get",
-            data: {
-                item_id: <?= $item_id ?>,
-            },
-            dataType: "json",
-            success: function(response) {
-                if (response.success && response.data.length > 0) {
-                    $('.project-members-list').empty();
-                    var owners = response.data;
-                    let isOwnerOfGroup = true;
+                        $.each(owners, function(key, owner) {
+                            var row = '<div class="project-member-item-info" data-item_id="' + <?= $item_id ?> + '"   data-user_id="' + owner.id + '" class="list-group-item list-group-item-action p-2">' +
+                                '<img src="' + '<?= base_url() ?>' + owner.avatar + '" alt="">' +
+                                '<span>' + owner.firstname + ' ' + owner.lastname + '</span>';
 
-                    $.each(owners, function(key, owner) {
-                        var row = '<div class="project-member-item-info" data-item_id="' + <?= $item_id ?> + '"   data-user_id="' + owner.id + '" class="list-group-item list-group-item-action p-2">' +
-                            '<img src="' + '<?= base_url() ?>' + owner.avatar + '" alt="">' +
-                            '<span>' + owner.firstname + ' ' + owner.lastname + '</span>' +
-                            '<button style="border: none;background-color: transparent;padding-right: 25px;" type="button" class="btn-clear-member-of-project" data-user-id="' + owner.id + '" data-item-id="' + <?= $item_id ?> + '">';
-                        if (isOwnerOfGroup === true) {
-                            row += '<svg fill="#FFFF00" height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 220" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M220,98.865c0-12.728-10.355-23.083-23.083-23.083s-23.083,10.355-23.083,23.083c0,5.79,2.148,11.084,5.681,15.14 l-23.862,21.89L125.22,73.002l17.787-20.892l-32.882-38.623L77.244,52.111l16.995,19.962l-30.216,63.464l-23.527-21.544 c3.528-4.055,5.671-9.344,5.671-15.128c0-12.728-10.355-23.083-23.083-23.083C10.355,75.782,0,86.137,0,98.865 c0,11.794,8.895,21.545,20.328,22.913l7.073,84.735H192.6l7.073-84.735C211.105,120.41,220,110.659,220,98.865z"></path> </g></svg>';
-                            isOwnerOfGroup = false;
-                        } else if (user_id_login == owners[0].id) {
-                            row += '<i class="fa fa-times-circle" aria-hidden="true"></i>';
-                        }
+                            if (is_owner && user_id_login == owners[0].id && isOwnerOfGroup == false) {
+                                row += '<button style="border: none;background-color: transparent;padding-right: 50px;" data-user-id="' + owner.id + '" data-item-id="' + <?= $item_id ?> + '"><i class="fa fa-exchange change_owner" aria-hidden="true"></i></button>';
+                            }
 
-                        row += '</button></div>';
-                        $('.project-members-list').append(row);
-                    });
+                            row += '<button style="border: none;background-color: transparent;padding-right: 25px;" type="button" class="btn-clear-member-of-project" data-user-id="' + owner.id + '" data-item-id="' + <?= $item_id ?> + '">';
+
+                            if (isOwnerOfGroup === true) {
+                                row += '<svg fill="#FFFF00" height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 220" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M220,98.865c0-12.728-10.355-23.083-23.083-23.083s-23.083,10.355-23.083,23.083c0,5.79,2.148,11.084,5.681,15.14 l-23.862,21.89L125.22,73.002l17.787-20.892l-32.882-38.623L77.244,52.111l16.995,19.962l-30.216,63.464l-23.527-21.544 c3.528-4.055,5.671-9.344,5.671-15.128c0-12.728-10.355-23.083-23.083-23.083C10.355,75.782,0,86.137,0,98.865 c0,11.794,8.895,21.545,20.328,22.913l7.073,84.735H192.6l7.073-84.735C211.105,120.41,220,110.659,220,98.865z"></path> </g></svg>';
+                                isOwnerOfGroup = false;
+                            } else if (user_id_login == owners[0].id) {
+                                row += '<i class="fa fa-times-circle" aria-hidden="true"></i>';
+                            }
+
+                            row += '</button></div>';
+
+                            $('.project-members-list').append(row);
+                        });
+                    }
                 }
-            }
+            });
+        }
+        $('body').on('click', '.change_owner', function(e) {
+            e.preventDefault();
+
+            const user_id = $(this).parent().data('user-id');
+            const item_id = $(this).parent().data('item-id');
+            $.ajax({
+                url: '<?= base_url('items/change_key_permission') ?>',
+                method: 'post',
+                data: {
+                    user_id: user_id,
+                    item_id: item_id
+                },
+
+                dataType: 'json',
+                success: function(res) {
+                    loadOwners(item_id);
+                    toastr.success('Chủ dự án đã được cập nhật!');
+                }
+            });
         });
-    }
+    });
 </script>

@@ -408,6 +408,31 @@ class Items extends CI_Controller
         $result = $this->Items_model->delete($id);
         echo json_encode(array('success' => $result));
     }
+
+    public function change_key_permission()
+    {
+        $user_id = $this->input->post('user_id');
+        $item_id = $this->input->post('item_id');
+
+        $item = $this->Items_model->find_by_id($item_id);
+
+        $owners = explode(',', $item->owners);
+
+        foreach ($owners as $key => $owner) {
+            if ($owner == $user_id) {
+                // Xóa phần tử tại vị trí $key
+                unset($owners[$key]);
+                // Chèn phần tử đó lên đầu mảng
+                array_unshift($owners, $owner);
+                break;
+            }
+        }
+        
+        $result = $this->Items_model->update(['owners' => implode(',', $owners)], $item_id);
+
+        echo json_encode(['success' => $result]);
+    }
+
     function sort()
     {
         $array_id = $this->input->post("array_id");
