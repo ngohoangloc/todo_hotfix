@@ -63,22 +63,28 @@ $users_of_meta = $this->User_model->find_in_set($value);
                 <input type="text" id="search_users_item_<?= $meta_id ?>" class="form-control" placeholder="Tìm kiếm người dùng">
             </div>
 
+            <?php
+            $isCheck = $this->db->get_where('config', ['key' => 'suggestuser'])->row();
+            ?>
             <div class="row mt-3">
-                <span style="margin-bottom: 5px; font-size: 13px;">
+                <span style="margin-bottom: 5px; font-size: 13px;"  <?= !$isCheck || $isCheck->value != 1 ? "hidden" : ""?>>
                     Gợi ý
                 </span>
 
                 <ul class="user_list">
-                    <?php $users_of_department = $this->User_model->get_board_members_of_the_same_department($this->session->userdata('user_id')) ?>
 
-                    <?php foreach ($users_of_department as $user) : ?>
-                        <?php if (!in_array($user->id, $user_meta_id)) : ?>
-                            <li class="user_list_item user_list_item_<?= $meta_id ?>" data-meta-id="<?= $meta_id ?>" data-project-id="<?= isset($project->id) ? $project->id : "" ?>" data-user-id="<?= isset($user->id) ? $user->id : "" ?>" data-group-id="<?= isset($group->id) ? $group->id : "" ?>">
-                                <img src="<?= base_url($user->avatar) ?>" alt="" style="border-radius: 50%;">
-                                <span><?= $user->firstname . " " . $user->lastname ?></span>
-                            </li>
-                        <?php endif; ?>
-                    <?php endforeach ?>
+                    <?php if (!$isCheck || $isCheck->value == 1) : ?>
+                        <?php $users_of_department = $this->User_model->get_board_members_of_the_same_department($this->session->userdata('user_id')) ?>
+
+                        <?php foreach ($users_of_department as $user) : ?>
+                            <?php if (!in_array($user->id, $user_meta_id)) : ?>
+                                <li class="user_list_item user_list_item_<?= $meta_id ?>" data-meta-id="<?= $meta_id ?>" data-project-id="<?= isset($project->id) ? $project->id : "" ?>" data-user-id="<?= isset($user->id) ? $user->id : "" ?>" data-group-id="<?= isset($group->id) ? $group->id : "" ?>">
+                                    <img src="<?= base_url($user->avatar) ?>" alt="" style="border-radius: 50%;">
+                                    <span><?= $user->firstname . " " . $user->lastname ?></span>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach ?>
+                    <?php endif; ?>
 
                 </ul>
             </div>

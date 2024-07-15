@@ -1102,9 +1102,9 @@ class Items extends CI_Controller
     public function search_users_input()
     {
         if ($this->input->get('search') == '') {
-            $user_id = $this->session->userdata('user_id');
+            // $user_id = $this->session->userdata('user_id');
 
-            $users = $this->User_model->get_board_members_of_the_same_department($user_id);
+            // $users = $this->User_model->get_board_members_of_the_same_department($user_id);
         } else {
             $search = $this->input->get('search');
 

@@ -90,8 +90,8 @@
     }
 
     .collapse-button {
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         padding: 8px 10px;
         border: none;
         border-radius: 50%;
@@ -300,6 +300,12 @@
     .user_setting_icon {
         cursor: pointer;
     }
+
+    .side-bar-setting {
+        position: absolute;
+        bottom: 0;
+        left: 2px;
+    }
 </style>
 
 <?php
@@ -356,6 +362,29 @@ $userInfo = $this->User_model->get_user_by_id($userId);
                     <img style="width: 40%; height: 40%;" src="<?= base_url("assets/images/plus-white.svg") ?>" alt="">
                 </div>
             </div>
+
+            <?php
+            $role_id = $this->session->userdata('role_id');
+            $role_permission = $this->Permission_model->get_permissions_by_role($role_id);
+            $menu_all = $this->Permission_model->get_all();
+            ?>
+
+            <?php $hasAdminManagement = false; ?>
+
+            <?php foreach ($menu_all as $menu) : ?>
+                <?php if ($menu->parent == 0 && in_array($menu->id, array_column($role_permission, 'permission_id'))) : ?>
+                    <?php $hasAdminManagement = true; ?>
+                    <?php break; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <?php if ($hasAdminManagement) : ?>
+                <div class="side-bar-setting">
+                    <button type="button" class="collapse-button" data-bs-toggle="popover">
+                        <img src="<?= base_url("assets/images/setting.svg") ?>" width="20" alt="">
+                    </button>
+                </div>
+            <?php endif; ?>
             <!-- End List project main -->
         </div>
         <div class="col-10 p-0" id="sidebar_right" <?= isset($folder_id_url) ? '' : 'hidden' ?>>
@@ -500,29 +529,6 @@ $userInfo = $this->User_model->get_user_by_id($userId);
                             </div>
                         </div>
 
-                    <?php endif; ?>
-
-                    <?php
-                    $role_id = $this->session->userdata('role_id');
-                    $role_permission = $this->Permission_model->get_permissions_by_role($role_id);
-                    $menu_all = $this->Permission_model->get_all();
-                    ?>
-
-                    <?php $hasAdminManagement = false; ?>
-
-                    <?php foreach ($menu_all as $menu) : ?>
-                        <?php if ($menu->parent == 0 && in_array($menu->id, array_column($role_permission, 'permission_id'))) : ?>
-                            <?php $hasAdminManagement = true; ?>
-                            <?php break; ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-
-                    <?php if ($hasAdminManagement) : ?>
-                        <div>
-                            <button type="button" class="collapse-button" data-bs-toggle="popover">
-                                <img src="<?= base_url("assets/images/setting.svg") ?>" width="20" alt="">
-                            </button>
-                        </div>
                     <?php endif; ?>
 
                 </div>

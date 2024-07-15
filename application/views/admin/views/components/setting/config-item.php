@@ -1,6 +1,6 @@
 <div class="config-item d-flex p-3" style="width: 700px">
     <div>
-        <span class="h5"><?= htmlspecialchars($name) ?></span>
+        <span><?= htmlspecialchars($name) ?></span>
     </div>
 
     <?php

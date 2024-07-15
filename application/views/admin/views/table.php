@@ -1040,8 +1040,10 @@ $project_id_url = $this->uri->segment(4);
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="min-height: 500px;">
-
-                <input id="search-department" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban">
+                <?php
+                $isCheck = $this->db->get_where('config', ['key' => 'searchdepartment'])->row();
+                ?>
+                <input id="search-department" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban" <?= !$isCheck || $isCheck->value != 1 ? "hidden" : ""?>> 
 
                 <input id="search-users-to-invite-group" type="text" class="form-control" placeholder="Tìm kiếm username hoặc email">
 
@@ -2925,16 +2927,15 @@ $type_html = base_url() . "input/gettypehtml";
             success: function(response) {
                 if (response.success) {
                     toastr.success("Cập nhật thành công!");
-                    const list_project_item = $(`li[data-project-id='${id}']`).closest(".list-project-item");
-                    const link_project_item = list_project_item.find('a');
+                    const group_list_project = $(".group_list_project_personal_item_title[data-project-id='" + id + "']");
                     const projectCheckbox = $('input[data-project-id="' + id + '"].project-status');
 
                     if (is_done) {
-                        link_project_item.addClass('text-success fw-bold');
+                        group_list_project.addClass('text-success fw-bold');
                         projectCheckbox.prop('checked', true);
                         $('#ratingModal').modal('show');
                     } else {
-                        link_project_item.removeClass('text-success fw-bold');
+                        group_list_project.removeClass('text-success fw-bold');
                         projectCheckbox.prop('checked', false);
                         const divRating = document.getElementById("rating");
                         divRating.style.display = "none"

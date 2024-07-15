@@ -5,7 +5,7 @@
 
     .menu-result {
         position: absolute;
-        top: 102px;
+        top: 55px;
         left: 16px;
         right: 16px;
         border: 1px solid #ddd;
@@ -70,7 +70,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="min-height: 500px;">
-                    <input id="search-department-invite-to-project" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban">
+                    <?php
+                    $isCheck = $this->db->get_where('config', ['key' => 'searchdepartment'])->row();
+                    ?>
+                    <input id="search-department-invite-to-project" type="text" class="form-control mb-2" placeholder="Tìm kiếm phòng ban" <?= !$isCheck || $isCheck->value != 1 ? "hidden" : ""?>>
 
                     <input id="search-users-to-invite-project" type="text" class="form-control" placeholder="Tìm kiếm username hoặc email">
 
