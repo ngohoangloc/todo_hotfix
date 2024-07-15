@@ -110,7 +110,7 @@
     cursor: pointer;
     border-radius: 3px;
   }
-  
+
   .noti-list {
     display: flex;
     flex-direction: column;
@@ -315,6 +315,11 @@ $project_id_url = $this->uri->segment(4);
     <div class="col-4">
       <div class="d-flex justify-content-end">
         <div class="d-flex align-items-center" style="gap: 20px;">
+
+          <div class="menu-account-item position-relative">
+            <a href="https://docs.google.com/document/d/1rfmUZ3DwYsKdYNR4_Kuu02jlDbyAcklr/edit?usp=sharing&ouid=112581959310365544498&rtpof=true&sd=true" target="_blank"><img src="<?= base_url("assets/icons/help-square-stroke-rounded.svg") ?>" width="20" alt="" data-bs-toggle="tooltip" data-bs-title="Hướng dẫn"></a>
+          </div>
+
           <div class="menu-account-item position-relative show_notification_btn" data-user-id="<?= $this->session->userdata('user_id') ?>" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNotification" aria-controls="offcanvasNotification" data-bs-toggle="tooltip" data-bs-placement="bottom">
             <img src="<?= base_url("assets/images/bell.svg") ?>" width="20" alt="" data-bs-toggle="tooltip" data-bs-title="Thông báo">
             <div class="show_notification_btn_dot"></div>
