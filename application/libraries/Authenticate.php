@@ -88,14 +88,16 @@ class Authenticate
 
         $query = $this->CI->db->get('ip_address');
 
+        $isCheck = $this->CI->db->get_where('config' , ['key' => 'checkip'])->row();
 
+        if (!$isCheck || $isCheck->value != 1) {
+            return;
+        }
 
         $ips_query = $query->result_array();
 
 
-
         $ips = [];
-
 
 
         foreach ($ips_query as $_ip) {
@@ -105,12 +107,11 @@ class Authenticate
         }
 
 
+        if (!in_array($ip, $ips)) {
 
-        // if (!in_array($ip, $ips)) {
+            redirect('/login');
 
-        //     redirect('/login');
-
-        // }
+        }
 
     }
 

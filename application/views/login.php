@@ -64,7 +64,7 @@
         justify-content: center;
         gap: 10px;
     }
-
+ 
     .schedule {
         width: 100%;
         background-color: #fff;
@@ -79,10 +79,8 @@
         justify-content: center;
         gap: 10px;
     }
-
     .schedule:hover {
-        background-color: #0D6EFD;
-        color: #fff;
+        border: 2px solid #198754;
     }
 
     input {
@@ -106,8 +104,13 @@
 
     .div-or {
         margin: 15px 0;
-
+	font-size: 80%;
+	color: blue;
     }
+
+.google-signin:hover {
+	border: 2px solid #0d6efd;
+}
 </style>
 
 
@@ -120,20 +123,20 @@
         <span style="font-weight: bold;">Đăng nhập với Google</span>
     </a>
     <div class="div-or">
-        <p>or</p>
+        <p hidden>or</p>
     </div>
-    <?php if ($this->Config_model->get_by_key('login_with_account')->value) : ?>
-        <form action="<?= base_url('auth/login') ?>" method="post" autocomplete="off">
-            <input type="text" placeholder="Tên đăng nhập" name="username" required>
-            <input type="password" placeholder="Mật khẩu" name="password" required>
-            <button type="submit">Đăng nhập</button>
-        </form>
-    <?php endif; ?>
+    <form action="<?= base_url('auth/login') ?>" method="post" autocomplete="off" >
+        <input type="text" placeholder="Tên đăng nhập" name="username" required>
+        <input type="password" placeholder="Mật khẩu" name="password" required>
+        <button type="submit">Đăng nhập</button>
+    </form>
     <a class="schedule" href="<?= base_url('schedule') ?>">
         <i class="fa fa-search" aria-hidden="true"></i>
         <span style="font-weight: bold;">Tra cứu Thời khóa biểu</span>
     </a>
-
+    <div class="div-or">
+        <i>*<strong>Lưu ý:</strong> Dùng địa chỉ email tên miền thuộc trường để đăng nhập</i>
+    </div>
 </div>
 
 <!-- Zalo Button -->

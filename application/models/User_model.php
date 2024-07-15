@@ -129,11 +129,11 @@ class User_model extends CI_Model
         $this->db->select('*');
         $this->db->from('users');
         $this->db->where('status', 1);
-        $this->db->group_start();
-        $this->db->like('username', $search);
-        $this->db->or_like('email', $search);
-        $this->db->or_like("CONCAT(firstname, ' ', lastname)", $search);
-        $this->db->group_end();
+        // $this->db->group_start();
+        // $this->db->where('username', $search);
+        $this->db->where('email', $search);
+        // $this->db->or_like("CONCAT(firstname, ' ', lastname)", $search);
+        // $this->db->group_end();
         $query = $this->db->get();
 
         return $query->result_object();
