@@ -408,6 +408,14 @@ class Items extends CI_Controller
         $result = $this->Items_model->delete($id);
         echo json_encode(array('success' => $result));
     }
+
+    public function change_key_permission()
+    {
+        $user_id = $this->input->post();
+
+        
+    }
+
     function sort()
     {
         $array_id = $this->input->post("array_id");
