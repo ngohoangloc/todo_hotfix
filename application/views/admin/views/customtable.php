@@ -1910,7 +1910,6 @@ $type_html = base_url() . "input/gettypehtml";
             $(".task-meta").prop("hidden", true);
 
             $(".task-item-header").css("width", "fit-content");
-            $(".group-item").css("width", Math.floor($(".task-item-header").width() + 52) + "px");
 
         } else {
             $(".hidden-column-list-checkbox").prop("checked", false);
@@ -1923,7 +1922,6 @@ $type_html = base_url() . "input/gettypehtml";
             $(".task-meta").prop("hidden", false);
 
             $(".task-item-header").css("width", "fit-content");
-            $(".group-item").css("width", Math.floor($(".task-item-header").width() + 52) + "px");
 
         }
 
