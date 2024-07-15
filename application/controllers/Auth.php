@@ -101,9 +101,6 @@ class Auth extends CI_Controller
                 $ip_address = $this->input->ip_address();
                 $this->session->set_userdata('ip', $ip_address);
 
-                $ip_address = $this->input->ip_address();
-                $this->session->set_userdata('ip', $ip_address);
-
                 $log = [
                     'type' => 'LOGIN',
                     'table' => 'users',
