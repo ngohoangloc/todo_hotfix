@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>link to board</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="link-to-board" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-22" transform="translate(11.000000, 24.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Group-21" opacity="0.4">
+                <g id="Group-19">
+                    <path d="M7.90322581,0 L32.8,0 C34.0150264,-2.38151728e-15 35,0.98497355 35,2.2 L35,20.8 C35,22.0150264 34.0150264,23 32.8,23 L7.90322581,23 L7.90322581,0 Z" id="Rectangle-4"></path>
+                    <path d="M2.2,0 L5.64516129,0 L5.64516129,23 L2.2,23 C0.98497355,23 -3.84800506e-15,22.0150264 -3.99680289e-15,20.8 L-3.99680289e-15,2.2 C-4.14560071e-15,0.98497355 0.98497355,-1.10907089e-15 2.2,-1.33226763e-15 Z" id="Rectangle-4-Copy"></path>
+                </g>
+            </g>
+            <g id="Group-20" transform="translate(29.000000, 17.000000)" opacity="0.4">
+                <g id="Group-19-Copy">
+                    <path d="M8.35483871,0 L34.8,0 C36.0150264,-2.38151728e-15 37,0.98497355 37,2.2 L37,20.8 C37,22.0150264 36.0150264,23 34.8,23 L8.35483871,23 L8.35483871,0 Z" id="Rectangle-4"></path>
+                    <path d="M2.2,0 L5.96774194,0 L5.96774194,23 L2.2,23 C0.98497355,23 -2.95982664e-15,22.0150264 -3.10862447e-15,20.8 L-3.55271368e-15,2.2 C-3.7015115e-15,0.98497355 0.98497355,-1.10907089e-15 2.2,-1.33226763e-15 Z" id="Rectangle-4-Copy"></path>
+                </g>
+            </g>
+            <path d="M31,17 L35,17 L35,21 C35,22.1045695 34.1045695,23 33,23 L29,23 L29,19 C29,17.8954305 29.8954305,17 31,17 Z" id="Rectangle-5"></path>
+        </g>
+    </g>
+</svg>

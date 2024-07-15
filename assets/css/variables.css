@@ -1,0 +1,9 @@
+:root {
+  --bg-main-color: #EEEEEE;
+  --primary-color: #0073ea;
+  --primary-border: #579bfb;
+  --primary-selected-color: #cce5ff;
+  --surfce-color: #eceff8;
+  --progress-success-color: #00c875;
+  --header-height: 69px;
+}

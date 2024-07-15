@@ -1,0 +1,12 @@
+{
+    "name": "nhloc/todo",
+    "authors": [
+        {
+            "name": "ngohoangloc",
+            "email": "ngohoanglocit@gmail.com"
+        }
+    ],
+    "require": {
+        "elephantio/elephant.io": "^4.7"
+    }
+}

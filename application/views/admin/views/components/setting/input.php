@@ -1,0 +1,1 @@
+<input class="input-config" type="text" data-id="<?= $id ?>" value="<?= $value ?>">

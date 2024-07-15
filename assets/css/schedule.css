@@ -1,0 +1,39 @@
+.thead-tiet {
+  width: 100px !important;
+  background-color: #2e95ab !important;
+  color: #fff !important;
+}
+
+.thead-thu {
+  background-color: #2e60ab !important;
+  color: #fff !important;
+}
+
+.thead-thu-number {
+  /* width: calc(90% / 6) !important; */
+  width: 200px !important;
+  background-color: #698dc3 !important;
+  color: #fff !important;
+}
+
+.tbody-tiet-number {
+  /* background-color: #2e95aba6 !important; */
+  color: #fff !important;
+  text-align: center !important;
+}
+.tbody-item {
+  background: #f9f9e0 !important;
+}
+
+.tbody-item div {
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+.tbody-item:hover div {
+  transform: scale(1.05) !important;
+}
+
+.tbody-thoigian {
+  /* background: #f1f1f1 !important; */
+}

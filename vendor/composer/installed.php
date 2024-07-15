@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'nhloc/todo',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => NULL,
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => true,
+    ),
+    'versions' => array(
+        'elephantio/elephant.io' => array(
+            'pretty_version' => 'v4.7.2',
+            'version' => '4.7.2.0',
+            'reference' => '3941a473f5c0d3c1755bf63e7bdd9ac07578752f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../elephantio/elephant.io',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'nhloc/todo' => array(
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => NULL,
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'psr/log' => array(
+            'pretty_version' => '1.1.4',
+            'version' => '1.1.4.0',
+            'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/log',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

@@ -1,0 +1,16 @@
+$(document).ready(function() {
+    $(".hover").click(function() {
+        $(this).css("z-index", "-1");
+        $(this).prev().focus();
+        $(this).prev().prev().css("z-index", "2");
+    }
+    );
+    $(".btn-clear").click(function() {
+        $(this).next().val("");
+        $(this).css("z-index", "-1");
+        $(this).next().next().css("z-index", "2");
+    }
+    );
+}
+
+);
