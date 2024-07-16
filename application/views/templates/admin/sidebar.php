@@ -520,7 +520,7 @@ $userInfo = $this->User_model->get_user_by_id($userId);
 
                         <div class="user_setting_info">
                             <div class="user_setting_info_avatar">
-                                <img src="<?= base_url() . $userInfo->avatar; ?>" alt="">
+                                <img src="<?= base_url() . $userInfo->avatar; ?>" alt="" id="user_setting_info_avatar">
                                 <span class="user_setting_info_status"></span>
                             </div>
                             <div class="user_setting_name">

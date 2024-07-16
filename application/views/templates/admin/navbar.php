@@ -556,7 +556,8 @@ $project_id_url = $this->uri->segment(4);
             $('#phoneError').html('');
             var newAvatarSrc = '<?= base_url() ?>' + response.user.avatar;
 
-            document.getElementById('avatarImg').src = newAvatarSrc;
+            $('#avatarImg').attr('src', newAvatarSrc);
+            $('#user_setting_info_avatar').attr('src', newAvatarSrc);
 
           } else {
             if (response.error) {
