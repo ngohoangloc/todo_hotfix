@@ -59,7 +59,7 @@
 </button>
 
 <div class="offcanvas-wrapper">
-    <div class="offcanvas offcanvas-end w-75" tabindex="-1" id="offcanvasRightConversation_<?= $task->id ?>" aria-labelledby="offcanvasRightConversation_<?= $task->id ?>Label" data-task-id="<?= $task->id ?>">
+    <div class="offcanvas offcanvas-end w-50" tabindex="-1" id="offcanvasRightConversation_<?= $task->id ?>" aria-labelledby="offcanvasRightConversation_<?= $task->id ?>Label" data-task-id="<?= $task->id ?>">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasRightConversation_<?= $task->id ?>Label">
                 <?= $task->title ?>

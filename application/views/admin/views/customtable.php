@@ -43,10 +43,6 @@ $project_id_url = $this->uri->segment(4);
                             <img width="20" src="<?= base_url("assets/images/excel.svg") ?>" alt="">
                             <span>Import Excel</span>
                         </li>
-                        <li style="display: flex; align-items: center; gap: 5px;">
-                            <img width="20" src="<?= base_url("assets/images/group.svg") ?>" alt="">
-                            <span>Thêm nhóm mới</span>
-                        </li>
                     </ul>
                 </div>
 

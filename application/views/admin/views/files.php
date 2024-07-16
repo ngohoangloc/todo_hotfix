@@ -260,9 +260,9 @@ $project_id_url = $this->uri->segment(4);
                                     </li>
                                 </ul>
                             </div>
-                            <div class="btn-download-file-modal form-group border text-center p-2">
+                            <a class="btn-download-file-modal form-group border text-center p-2" download>
                                 <i class="fa fa-download" aria-hidden="true"></i> Tải xuống
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
