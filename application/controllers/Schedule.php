@@ -111,6 +111,9 @@ class Schedule extends CI_Controller
             ];
         }
 
+        $first_day = implode("-", array_reverse(explode("/", $data_date_select[0]['ngay'])));
+        $monday_of_week = $this->getMondayOfWeek($first_day);
+
         $html = null;
 
         if (count($data_show) > 0) {
@@ -118,6 +121,17 @@ class Schedule extends CI_Controller
             $html = $this->load->view("admin/views/components/schedule-table-item", $data, true);
         }
 
-        echo json_encode(array('success' => count($data_show) > 0 ? true : false, 'group_select' => $data_group_select, 'date_select' => $data_date_select, "user_info" => $user_info ? $user_info : "", "data_show" => $data_show ? $data_show : "", 'html' => $html));
+        echo json_encode(array('success' => count($data_show) > 0 ? true : false, 'monday_of_week' => $monday_of_week, 'group_select' => $data_group_select, 'date_select' => $data_date_select, "user_info" => $user_info ? $user_info : "", "data_show" => $data_show ? $data_show : "", 'html' => $html));
+    }
+
+    function getMondayOfWeek($currentDate)
+    {
+        // Tìm ngày hiện tại
+        $currentDate = date($currentDate);
+
+        // Tìm ngày thứ 2 của tuần hiện tại
+        $monday = date('Y-m-d', strtotime('monday this week', strtotime($currentDate)));
+
+        return $monday;
     }
 }

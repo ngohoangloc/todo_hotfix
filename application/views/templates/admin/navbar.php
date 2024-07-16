@@ -456,7 +456,7 @@ $project_id_url = $this->uri->segment(4);
                       </div>
                       <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?= $userInfo->email; ?>" required>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= $userInfo->email; ?>" disabled>
                         <small style="color: red;">(*) Email này sẽ sử dụng để đăng nhập google</small>
                         <span id="emailError" class="text-danger"></span>
 

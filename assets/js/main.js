@@ -1,12 +1,10 @@
-// const URL = window.location.href;
-
 const URL = 'https://todo.nctu.edu.vn';
 
 // Socket.io Notification
 document.addEventListener("DOMContentLoaded", function () {
   const userId = $(".show_notification_btn").data("user-id");
 
-  const socket = io("http://34.125.70.197:3000");
+  const socket = io("https://nhloc.id.vn:3000");
 
   socket.on("connect", function () {
     console.log("Connected to socket server");
@@ -39,7 +37,6 @@ $(".project-title").change(function () {
         project_title_sidebar.text(title);
 
         toastr.success("Cập nhật tiêu đề thành công!");
-        // $(`.project_title[data-project-id='${id}']`).find("span").text(title);
       }
     },
   });

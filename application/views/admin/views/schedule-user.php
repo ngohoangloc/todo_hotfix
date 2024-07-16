@@ -187,9 +187,7 @@ $user = $this->User_model->get_user_by_id($user_id);
                         $(".table-data-show").html(response.html);
                     }
 
-                    const start_date = date_select[0].split("/").reverse().join("-");
-
-                    getNext7Days(start_date);
+                    getNext7Days(response.monday_of_week);
 
                 } else {
                     $(".table-data-show").html('<span>Không tìm thấy dữ liệu!</span>');

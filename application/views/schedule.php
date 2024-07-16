@@ -30,7 +30,7 @@
     </div>
 
     <div class="col-6 col-md-8 d-flex align-items-end hoten_giangvien" hidden>
-        
+
     </div>
 
     <div class="col-12 mt-3 table-responsive">
@@ -42,12 +42,12 @@
                     <th class="thead-thu" colspan="6">Thứ</th>
                 </tr>
                 <tr>
-                    <th class="thead-thu-number">2</th>
-                    <th class="thead-thu-number">3</th>
-                    <th class="thead-thu-number">4</th>
-                    <th class="thead-thu-number">5</th>
-                    <th class="thead-thu-number">6</th>
-                    <th class="thead-thu-number">7</th>
+                    <th class="thead-thu-number" data-number="2">2</th>
+                    <th class="thead-thu-number" data-number="3">3</th>
+                    <th class="thead-thu-number" data-number="4">4</th>
+                    <th class="thead-thu-number" data-number="5">5</th>
+                    <th class="thead-thu-number" data-number="6">6</th>
+                    <th class="thead-thu-number" data-number="7">7</th>
                 </tr>
             </thead>
             <tbody class="table-data-show">
@@ -191,14 +191,15 @@
                                     $(".group-select-ngay").html(date_select_html);
                                 }
 
-                                const start_date = date_select[0].split("/").reverse().join("-");
+                                getNext7Days(response.monday_of_week);
+                                console.log(date_select)
 
-                                getNext7Days(start_date);
-
-                                $(".hoten_giangvien").html(`<span>
-                                Họ tên giảng viên: <strong>${response.user_info['user_name']}</strong> - 
-                                Mã GV: <strong>${response.user_info['magv']}</strong>
-                                </span>`);
+                                $(".hoten_giangvien").html(`
+                                <span>
+                                    Họ tên giảng viên: <strong>${response.user_info['user_name']}</strong> - 
+                                    Mã GV: <strong>${response.user_info['magv']}</strong>
+                                </span>
+                                `);
                                 $(".hoten_giangvien").prop("hidden", false);
 
                             } else {

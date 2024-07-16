@@ -19,7 +19,7 @@ class Notification
     {
         try {
 
-            $client = new Client(new Version4X('http://34.125.70.197:3000'));
+            $client = new Client(new Version4X('https://nhloc.id.vn:3000'));
 
             $client->connect();
 
