@@ -712,6 +712,7 @@ $userInfo = $this->User_model->get_user_by_id($userId);
                 if (response.success) {
                     const list_project_main_item = $(`.list_project_main_item[data-folder-id='${id}']`).parent();
                     list_project_main_item.remove();
+                    location.reload();
                 }
             }
         })

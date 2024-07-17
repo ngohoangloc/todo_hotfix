@@ -1,4 +1,18 @@
 // const URL = window.location.href;
+$(document).ready(function () {
+  var loadingTimeout;
+
+  $(document).ajaxStart(function () {
+    loadingTimeout = setTimeout(function () {
+      $("#loading").show();
+    }, 500); 
+  });
+
+  $(document).ajaxStop(function () {
+    clearTimeout(loadingTimeout); 
+    $("#loading").hide();
+  });
+});
 
 const URL = 'https://todo.nctu.edu.vn';
 

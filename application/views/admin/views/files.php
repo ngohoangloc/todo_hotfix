@@ -165,14 +165,16 @@ $project_id_url = $this->uri->segment(4);
                         <div class="file_list_item col-6 col-lg-3 mb-3" data-file-id="<?= $file->id ?>">
                             <div class="file-item border p-2 rounded-2">
                                 <div class="file-image" data-file-desc="<?= $file->description ?>" data-file-id="<?= $file->id ?>" data-file-type="<?= $file->type ?>" data-file-upload-date="<?= $file->created_at ?>" data-file-title="<?= $file->title ?>" data-file-path="<?= base_url($filePath . $filePathExplode[2]) ?>">
-                                    <?php if ($file->type == 'jpeg' || $file->type ==  'png' || $file->type == 'jpg') : ?>
-
-                                        <img src="<?= base_url($filePath . $filePathExplode[2]) ?>" alt="file_icon">
-
-                                    <?php elseif (in_array($file->type, $fileTypes)) : ?>
-                                        <img src="<?= base_url("/assets/images/$file->type.svg") ?>" alt="file_icon">
+                                    <?php if (!in_array($this->session->userdata("user_id"), explode(",", $group->owners))) : ?>
+                                        <img src="<?= base_url($fileUrl) ?>" alt="file_icon">
                                     <?php else : ?>
-                                        <img src="<?= base_url("/assets/images/file-icon.svg") ?>" alt="file_icon">
+                                        <?php if ($file->type == 'jpeg' || $file->type ==  'png' || $file->type == 'jpg') : ?>
+                                            <img src="<?= base_url($fileUrl) ?>" alt="file_icon">
+                                        <?php elseif (in_array($file->type, $fileTypes)) : ?>
+                                            <img src="<?= base_url("assets/images/" . $file->type . ".svg") ?>" alt="file_icon">
+                                        <?php else : ?>
+                                            <img src="<?= base_url("assets/images/file-icon.svg") ?>" alt="file_icon">
+                                        <?php endif; ?>
                                     <?php endif; ?>
                                     <div class="file-info" hidden data-file-url-download="<?= base_url($fileUrlDownload) ?>" data-file-desc="<?= $file->description ?>" data-file-id="<?= $file->id ?>" data-file-type="<?= $file->type ?>" data-file-upload-date="<?= $file->created_at ?>" data-file-title="<?= $file->title ?>" data-file-path="<?= base_url($fileUrl) ?>"></div>
                                 </div>
@@ -236,7 +238,7 @@ $project_id_url = $this->uri->segment(4);
                     <div class="col-8 border-end">
                         <div class="image-preview-modal">
                             <img src="" class="image-preview" alt="image-preview">
-                        </div>  
+                        </div>
                     </div>
                     <div class="col-4">
                         <div class="image-info">
