@@ -5,10 +5,10 @@ $title = isset($title) ? $title : "";
 $required = isset($required) ? $required : false;
 
 $options = [
-    'hoanthanh|success' => ['Hoàn thành', 'success'],
+    'chuabatdau|secondary' => ['Chưa bắt đầu', 'secondary'],
     'danglam|warning' => ['Đang làm', 'warning'],
     'chuahoanthanh|danger' => ['Chưa hoàn thành', 'danger'],
-    'chuabatdau|secondary' => ['Chưa bắt đầu', 'secondary'],
+    'hoanthanh|success' => ['Hoàn thành', 'success'],
 ];
 ?>
 <div class="input-group" <?= $required ? "required" : "" ?> data-title="<?= $title ?>" data-key="<?= $key ?>">

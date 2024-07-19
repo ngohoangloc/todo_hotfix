@@ -328,18 +328,31 @@ function initSidebarState() {
 
 $(document).ready(function () {
   const currentURL = window.location.href;
-  if (currentURL.match(baseUrl + "folder/view/\\d+") || currentURL.match(baseUrl + "table/view/\\d+" ) || currentURL.match(baseUrl + "customtable/view/\\d+" )){ //chỉ collapse khi trong view folder
-    initSidebarState();
 
-    $("#toggle-sidebar").on("click", function () {
-        $("#sidebar_right").toggleClass("collapsed");
-        $("#main-content").toggleClass("expanded");
+  const urlPatterns = [
+      baseUrl + "folder/view/\\d+",
+      baseUrl + "table/view/\\d+",
+      baseUrl + "customtable/view/\\d+",
+      baseUrl + "form/view/\\d+",
+      baseUrl + "file/view/\\d+",
+      baseUrl + "calendar/view/\\d+",
+      baseUrl + "kanban/view/\\d+",
+      baseUrl + "gantt/view/\\d+",
+  ];
 
-        const collapsed = $("#sidebar_right").hasClass("collapsed");
-        setSidebarState(collapsed);
+  const isMatchingURL = urlPatterns.some(pattern => new RegExp(pattern).test(currentURL));
 
-        // Save the sidebar state to localStorage
-        localStorage.setItem('sidebar_collapsed', collapsed);
-    });
-}
+  if (isMatchingURL) { 
+      initSidebarState();
+
+      $("#toggle-sidebar").on("click", function () {
+          $("#sidebar_right").toggleClass("collapsed");
+          $("#main-content").toggleClass("expanded");
+
+          const collapsed = $("#sidebar_right").hasClass("collapsed");
+          setSidebarState(collapsed);
+
+          localStorage.setItem('sidebar_collapsed', collapsed);
+      });
+  }
 });

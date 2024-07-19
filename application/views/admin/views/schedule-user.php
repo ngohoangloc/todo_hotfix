@@ -23,11 +23,9 @@ $user = $this->User_model->get_user_by_id($user_id);
 
     <div class="col-6 col-md-8 d-flex align-items-end">
         <span>
-            Họ tên giảng viên: <strong><?= $user->firstname . " " . $user->lastname; ?></strong>
+            Họ tên giảng viên: <strong><?= $user->firstname . " " . $user->lastname; ?></strong> -
+            Mã GV: <strong><?= $user->magv ?></strong>
         </span>
-        <?php if (isset($user->magv)) : ?>
-            - Mã GV: <strong><?= $user->magv ?></strong>
-        <?php endif; ?>
     </div>
 
     <div class="col-12 mt-3">
@@ -54,7 +52,6 @@ $user = $this->User_model->get_user_by_id($user_id);
                             <span>Không tìm thấy dữ liệu!</span>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
         </div>
@@ -62,9 +59,11 @@ $user = $this->User_model->get_user_by_id($user_id);
 </div>
 
 <script>
-    function getNext7Days(startDate) {
+    function getNext7Days(startDate, thu) {
         const dateArray = [];
         const start = new Date(startDate);
+
+        console.log(thu)
 
         for (let i = 0; i < 6; i++) {
             const nextDate = new Date(start);
@@ -98,46 +97,45 @@ $user = $this->User_model->get_user_by_id($user_id);
 
     let magv = "<?= $user->magv ?>";
 
-    if (magv != "") {
-        $(".table-data-show").html(loading_html);
+    $(".table-data-show").html(loading_html);
 
-        $.ajax({
-            "url": "<?= base_url("schedule/search_schedule") ?>",
-            method: "post",
-            data: {
-                search_key: magv
-            },
-            dataType: "json",
-            success: function(response) {
+    $.ajax({
+        "url": "<?= base_url("schedule/search_schedule") ?>",
+        method: "post",
+        data: {
+            search_key: magv
+        },
+        dataType: "json",
+        success: function(response) {
 
-                const {
-                    date_select
-                } = response;
+            const {
+                date_select
+            } = response;
 
-                if (response.success) {
+            if (response.success) {
 
-                    if (response.html) {
-                        $(".table-data-show").html(response.html);
-                    }
+                if (response.html) {
+                    $(".table-data-show").html(response.html);
+                }
 
-                    if (response.group_select) {
-                        response.group_select.map(item => {
-                            const html = `
+                if (response.group_select) {
+                    response.group_select.map(item => {
+                        const html = `
                                             <option selected>${item.title}</option>
                                         `;
 
-                            $(".group-select-tuan").append(html);
+                        $(".group-select-tuan").append(html);
 
-                        })
-                    }
-                    const start_date = date_select[0].split("/").reverse().join("-");
+                    })
+                }
+                const start_date = date_select[0]['ngay'].split("/").reverse().join("-");
 
-                    getNext7Days(start_date);
+                getNext7Days(start_date, date_select[0]['thu']);
 
 
-                } else {
+            } else {
 
-                    loading_html = `
+                loading_html = `
                     <tr>
                         <td class="text-center text-primary" colspan="7">
                             <span>Không tìm thấy dữ liệu!</span>
@@ -145,13 +143,12 @@ $user = $this->User_model->get_user_by_id($user_id);
                     </tr>
                 `;
 
-                    $(".table-data-show").html(loading_html);
-                }
-
+                $(".table-data-show").html(loading_html);
             }
-        })
 
-    }
+        }
+    })
+
 
     $("body").on('change', '.group-select-tuan', function() {
 
@@ -190,7 +187,11 @@ $user = $this->User_model->get_user_by_id($user_id);
                     getNext7Days(response.monday_of_week);
 
                 } else {
-                    $(".table-data-show").html('<span>Không tìm thấy dữ liệu!</span>');
+                    $(".table-data-show").html(`<tr>
+                        <td class="text-center text-primary" colspan="9">
+                            <span>Không tìm thấy dữ liệu!</span>
+                        </td>
+                    </tr>`);
                 }
 
             }

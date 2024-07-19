@@ -64,7 +64,7 @@
         justify-content: center;
         gap: 10px;
     }
- 
+
     .schedule {
         width: 100%;
         background-color: #fff;
@@ -79,6 +79,7 @@
         justify-content: center;
         gap: 10px;
     }
+
     .schedule:hover {
         border: 2px solid #198754;
     }
@@ -104,13 +105,13 @@
 
     .div-or {
         margin: 15px 0;
-	font-size: 80%;
-	color: blue;
+        font-size: 80%;
+        color: blue;
     }
 
-.google-signin:hover {
-	border: 2px solid #0d6efd;
-}
+    .google-signin:hover {
+        border: 2px solid #0d6efd;
+    }
 </style>
 
 
@@ -122,14 +123,17 @@
         <img width="20" src="<?= base_url("assets/images/logo-google.svg") ?>" alt="Google Logo">
         <span style="font-weight: bold;">Đăng nhập với Google</span>
     </a>
+    <?php $isCheck = $this->Config_model->get_by_key('login_with_account')->value; ?>
     <div class="div-or">
-        <p hidden>or</p>
+        <p <?= $isCheck ? '' : 'hidden' ?>>or</p>
     </div>
-    <form action="<?= base_url('auth/login') ?>" method="post" autocomplete="off" >
-        <input type="text" placeholder="Tên đăng nhập" name="username" required>
-        <input type="password" placeholder="Mật khẩu" name="password" required>
-        <button type="submit">Đăng nhập</button>
-    </form>
+    <?php if ($isCheck) : ?>
+        <form action="<?= base_url('auth/login') ?>" method="post" autocomplete="off">
+            <input type="text" placeholder="Tên đăng nhập" name="username" required>
+            <input type="password" placeholder="Mật khẩu" name="password" required>
+            <button type="submit">Đăng nhập</button>
+        </form>
+    <?php endif; ?>
     <a class="schedule" href="<?= base_url('schedule') ?>">
         <i class="fa fa-search" aria-hidden="true"></i>
         <span style="font-weight: bold;">Tra cứu Thời khóa biểu</span>

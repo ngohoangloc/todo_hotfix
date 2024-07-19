@@ -63,13 +63,13 @@ class Profile extends CI_Controller
     public function updateProfile()
     {
         $userId = $this->session->userdata('user_id');
-        // $firstName = $this->input->post('firstName');
-        // $lastName = $this->input->post('lastName');
+        $firstName = $this->input->post('firstName');
+        $lastName = $this->input->post('lastName');
         $email = $this->input->post('email');
         $phone = $this->input->post('phone');
     
-        // $this->form_validation->set_rules('firstName', 'Họ', 'required|max_length[50]');
-        // $this->form_validation->set_rules('lastName', 'Tên', 'required|max_length[50]');
+        $this->form_validation->set_rules('firstName', 'Họ', 'required|max_length[50]');
+        $this->form_validation->set_rules('lastName', 'Tên', 'required|max_length[50]');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
         $this->form_validation->set_rules('phone', 'Số điện thoại', 'regex_match[/^[0-9]+$/]|max_length[10]', array('regex_match' => 'Số điện thoại không hợp lệ.'));
 
@@ -79,8 +79,8 @@ class Profile extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $errors = array(
-                // 'firstName' => form_error('firstName'),
-                // 'lastName' => form_error('lastName'),
+                'firstName' => form_error('firstName'),
+                'lastName' => form_error('lastName'),
                 'email' => form_error('email'),
                 'phone' => form_error('phone'),
 
@@ -119,8 +119,8 @@ class Profile extends CI_Controller
               
     
                 $data = array(
-                    // 'firstname' => $firstName,
-                    // 'lastname' => $lastName,
+                    'firstname' => $firstName,
+                    'lastname' => $lastName,
                     'email' => $email,
                     'phone' => $phone,
                     'avatar' => $avatar_url

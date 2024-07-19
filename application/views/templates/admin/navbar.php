@@ -444,19 +444,19 @@ $project_id_url = $this->uri->segment(4);
                     <div class="col-12 col-lg-9">
                       <div class="mb-3">
                         <label for="firstName" class="form-label">Họ</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $userInfo->firstname; ?>" disabled>
+                        <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $userInfo->firstname; ?>" readonly>
                         <span id="firstNameError" class="text-danger"></span>
 
                       </div>
                       <div class="mb-3">
                         <label for="lastName" class="form-label">Tên</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $userInfo->lastname; ?>" disabled>
+                        <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $userInfo->lastname; ?>" readonly>
                         <span id="lastNameError" class="text-danger"></span>
 
                       </div>
                       <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?= $userInfo->email; ?>" disabled>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= $userInfo->email; ?>" readonly>
                         <small style="color: red;">(*) Email này sẽ sử dụng để đăng nhập google</small>
                         <span id="emailError" class="text-danger"></span>
 
@@ -583,14 +583,22 @@ $project_id_url = $this->uri->segment(4);
 
 
     $('#avatar').change(function() {
-      var input = this;
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-          $('#avatarPreview').attr('src', e.target.result);
+        var input = this;
+        var file = input.files[0];
+        var fileType = file.type;
+
+        var allowedTypes = ['image/gif', 'image/jpeg', 'image/png'];
+
+        if (file && allowedTypes.includes(fileType)) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#avatarPreview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(file);
+        } else {
+            input.value = '';
+            toastr.error('Sai định dạng (gif, jpg, png).');
         }
-        reader.readAsDataURL(input.files[0]);
-      }
     });
 
     $('#profileModal').on('show.bs.modal', function(e) {

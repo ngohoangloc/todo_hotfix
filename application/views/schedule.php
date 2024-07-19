@@ -30,7 +30,6 @@
     </div>
 
     <div class="col-6 col-md-8 d-flex align-items-end hoten_giangvien" hidden>
-
     </div>
 
     <div class="col-12 mt-3 table-responsive">
@@ -89,19 +88,17 @@
     }
 
     let loading_html = `
-                <tr>
-                    <td class="text-center text-primary" colspan="7">
-                        <!-- <span>Không tìm thấy dữ liệu!</span> -->
-                        <img width="30" src="https://i.gifer.com/ZKZg.gif" alt="">
-                    </td>
-                </tr>
-        `;
+    <tr>
+        <td class="text-center text-primary" colspan="7">
+            <img width="30" src="https://i.gifer.com/ZKZg.gif" alt="">
+        </td>
+    </tr>
+`;
 
     $("body").on("click", ".btn-tra-cuu", function(e) {
         e.preventDefault();
 
         const input_magv = $("input[name='magv']").val();
-
         const recaptchaResponse = grecaptcha.getResponse();
 
         if (input_magv == '') {
@@ -112,108 +109,83 @@
         $(".table-data-show").html(loading_html);
 
         $.ajax({
-            url: "<?= base_url("schedule/verify_recaptcha") ?>",
+            url: "<?= base_url('schedule/verify_recaptcha') ?>",
             method: 'POST',
             dataType: "json",
             data: {
                 'g-recaptcha-response': recaptchaResponse
             },
             success: function(response) {
-
                 loading_html = `
-                                    <tr>
-                                        <td class="text-center text-primary" colspan="7">
-                                            <span>Không tìm thấy dữ liệu!</span> 
-                                        </td> 
-                                    </tr>
-                                `;
+                <tr>
+                    <td class="text-center text-primary" colspan="9">
+                        <span>Không tìm thấy dữ liệu!</span>
+                    </td>
+                </tr>
+            `;
 
                 if (!response.success) {
                     $('#response-message').html(response.message);
                     grecaptcha.reset();
-
                     $(".table-data-show").html(loading_html);
-
                 } else {
                     $('#response-message').html("");
                     grecaptcha.reset();
 
                     $.ajax({
-                        "url": "<?= base_url("schedule/search_schedule") ?>",
+                        url: "<?= base_url('schedule/search_schedule') ?>",
                         method: "post",
                         data: {
                             search_key: input_magv
                         },
                         dataType: "json",
                         success: function(response) {
-
                             const {
                                 date_select
                             } = response;
 
                             if (response.success) {
-
                                 if (response.html) {
                                     $(".table-data-show").html(response.html);
                                 }
 
                                 if (response.group_select) {
-
-                                    const group_select_html = [];
-
-                                    response.group_select.map(item => {
-
-                                        group_select_html.push(`
-                                            <option selected>${item.title}</option>
-                                        `)
-                                    })
-
-                                    group_select_html.unshift(`<option selected disabled> --- Chọn tuần --- </option>`)
-
+                                    const group_select_html = response.group_select.map(item => `
+                                    <option selected>${item.title}</option>
+                                `);
+                                    group_select_html.unshift(`<option selected disabled> --- Chọn tuần --- </option>`);
                                     $(".group-select-tuan").html(group_select_html);
                                 }
 
                                 if (response.date_select) {
-
-                                    const date_select_html = [];
-
-                                    response.date_select.map(item => {
-
-                                        date_select_html.push(`
-                                        <option selected>${item}</option>
-                                        `);
-
-
-
-                                    })
-
-                                    date_select_html.unshift(`<option selected disabled> --- Chọn ngày --- </option>`)
+                                    const date_select_html = response.date_select.map(item => `
+                                    <option selected>${item}</option>
+                                `);
+                                    date_select_html.unshift(`<option selected disabled> --- Chọn ngày --- </option>`);
                                     $(".group-select-ngay").html(date_select_html);
                                 }
 
                                 getNext7Days(response.monday_of_week);
+
                                 console.log(date_select)
 
                                 $(".hoten_giangvien").html(`
-                                <span>
-                                    Họ tên giảng viên: <strong>${response.user_info['user_name']}</strong> - 
-                                    Mã GV: <strong>${response.user_info['magv']}</strong>
-                                </span>
+                                    <span>
+                                        Họ tên giảng viên: <strong>${response.user_info['user_name']}</strong> - 
+                                        Mã GV: <strong>${response.user_info['magv']}</strong>
+                                    </span>
                                 `);
                                 $(".hoten_giangvien").prop("hidden", false);
-
                             } else {
                                 $(".table-data-show").html(loading_html);
                             }
-
                         }
-                    })
-
+                    });
                 }
             }
         });
+    });
 
-    })
 
     $("body").on('change', '.group-select-tuan', function() {
 

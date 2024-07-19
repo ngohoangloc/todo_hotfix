@@ -67,6 +67,8 @@ class Schedule extends CI_Controller
 
         foreach ($timetables as $key => $timetable) {
 
+            $groups = [];
+
             if (!empty($tuan)) {
                 $groups = $this->Items_model->get_groups($timetable->id, ['title' => $tuan]);
             } else {
@@ -86,7 +88,7 @@ class Schedule extends CI_Controller
                     $ngay_meta = $this->Items_model->get_meta($timetable_item->id, 'ngay')->value;
 
                     if (!in_array($ngay_meta, $data_date_select)) {
-                        $data_date_select[] = $ngay_meta;
+                        $data_date_select[] = ['ngay' => $ngay_meta, 'thu' => $this->Items_model->get_meta($timetable_item->id, 'thu')->value];
                     }
 
                     $data_show[] = [
@@ -101,7 +103,6 @@ class Schedule extends CI_Controller
             }
         }
 
-
         $user_info = [];
 
         if (isset($user)) {
@@ -109,12 +110,14 @@ class Schedule extends CI_Controller
                 'user_name' => $user->firstname . " " . $user->lastname,
                 'magv' => $user->magv,
             ];
+
+            $data_show['user_info'] = $user_info;
         }
 
         $first_day = implode("-", array_reverse(explode("/", $data_date_select[0]['ngay'])));
+
         $monday_of_week = $this->getMondayOfWeek($first_day);
 
-        $html = null;
 
         if (count($data_show) > 0) {
             $data['data'] = $data_show;
@@ -123,7 +126,6 @@ class Schedule extends CI_Controller
 
         echo json_encode(array('success' => count($data_show) > 0 ? true : false, 'monday_of_week' => $monday_of_week, 'group_select' => $data_group_select, 'date_select' => $data_date_select, "user_info" => $user_info ? $user_info : "", "data_show" => $data_show ? $data_show : "", 'html' => $html));
     }
-
     function getMondayOfWeek($currentDate)
     {
         // Tìm ngày hiện tại
