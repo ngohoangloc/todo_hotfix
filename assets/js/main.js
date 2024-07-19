@@ -1,6 +1,20 @@
 // const URL = window.location.href;
+$(document).ready(function () {
+  var loadingTimeout;
 
-const URL = 'https://todo.nctu.edu.vn';
+  $(document).ajaxStart(function () {
+    loadingTimeout = setTimeout(function () {
+      $("#loading").show();
+    }, 500);
+  });
+
+  $(document).ajaxStop(function () {
+    clearTimeout(loadingTimeout);
+    $("#loading").hide();
+  });
+});
+
+const URL = "https://todo.nctu.edu.vn";
 
 // Socket.io Notification
 document.addEventListener("DOMContentLoaded", function () {
@@ -33,8 +47,9 @@ $(".project-title").change(function () {
     },
     success: function (response) {
       if (response.success) {
-
-        const project_title_sidebar = $(`.project-title-sidebar[data-project-id=${id}]`);
+        const project_title_sidebar = $(
+          `.project-title-sidebar[data-project-id=${id}]`
+        );
 
         project_title_sidebar.text(title);
 
@@ -126,13 +141,19 @@ $("body").on("click", ".file-image", function () {
   $(".file_info_name").val(title);
   $(".file_info_upload_date").text(created_at);
 
-  if ("pdf|doc|docx|xls|xlsx|ppt|pptx|rar|zip".split("|").includes(type)) {
+  if (file_info.attr("data-check") != 1) {
+    $(".image-preview").attr("src", file_info.attr("data-test"));
+  } else if (
+    "pdf|doc|docx|xls|xlsx|ppt|pptx|rar|zip".split("|").includes(type)
+  ) {
     $(".file_info_type").text(type);
     $(".image-preview").attr("src", `${baseUrl}assets/images/${type}.svg`);
   } else {
     $(".file_info_type").text("image");
     $(".image-preview").attr("src", path);
   }
+
+  // $(".image-preview").attr("src", `${baseUrl}assets/images/data-encryption.png`);
 
   $(".btn-download-file-modal").attr("data-path", path.replace("enc", type));
   $(".btn-download-file-modal").attr("data-file-title", title);
@@ -311,11 +332,15 @@ function load_num_notification() {
 //Collapse sidebar
 function setSidebarState(collapsed) {
   if (collapsed) {
-    $("#side-bar").addClass("sidebar_home").removeClass("col-md-4 col-lg-3 col-xxl-2");
+    $("#side-bar")
+      .addClass("sidebar_home")
+      .removeClass("col-md-4 col-lg-3 col-xxl-2");
     $("#sidebar_left").addClass("col-12").removeClass("col-2");
     $("#sidebar_right").attr("hidden", true);
   } else {
-    $("#side-bar").addClass("col-md-4 col-lg-3 col-xxl-2").removeClass("sidebar_home");
+    $("#side-bar")
+      .addClass("col-md-4 col-lg-3 col-xxl-2")
+      .removeClass("sidebar_home");
     $("#sidebar_left").addClass("col-2").removeClass("col-12");
     $("#sidebar_right").removeAttr("hidden");
   }
@@ -333,29 +358,31 @@ $(document).ready(function () {
   const currentURL = window.location.href;
 
   const urlPatterns = [
-      baseUrl + "folder/view/\\d+",
-      baseUrl + "table/view/\\d+",
-      baseUrl + "customtable/view/\\d+",
-      baseUrl + "form/view/\\d+",
-      baseUrl + "file/view/\\d+",
-      baseUrl + "calendar/view/\\d+",
-      baseUrl + "kanban/view/\\d+",
-      baseUrl + "gantt/view/\\d+",
+    baseUrl + "folder/view/\\d+",
+    baseUrl + "table/view/\\d+",
+    baseUrl + "customtable/view/\\d+",
+    baseUrl + "form/view/\\d+",
+    baseUrl + "file/view/\\d+",
+    baseUrl + "calendar/view/\\d+",
+    baseUrl + "kanban/view/\\d+",
+    baseUrl + "gantt/view/\\d+",
   ];
 
-  const isMatchingURL = urlPatterns.some(pattern => new RegExp(pattern).test(currentURL));
+  const isMatchingURL = urlPatterns.some((pattern) =>
+    new RegExp(pattern).test(currentURL)
+  );
 
-  if (isMatchingURL) { 
-      initSidebarState();
+  if (isMatchingURL) {
+    initSidebarState();
 
-      $("#toggle-sidebar").on("click", function () {
-          $("#sidebar_right").toggleClass("collapsed");
-          $("#main-content").toggleClass("expanded");
+    $("#toggle-sidebar").on("click", function () {
+      $("#sidebar_right").toggleClass("collapsed");
+      $("#main-content").toggleClass("expanded");
 
-          const collapsed = $("#sidebar_right").hasClass("collapsed");
-          setSidebarState(collapsed);
+      const collapsed = $("#sidebar_right").hasClass("collapsed");
+      setSidebarState(collapsed);
 
-          localStorage.setItem('sidebar_collapsed', collapsed);
-      });
+      localStorage.setItem("sidebar_collapsed", collapsed);
+    });
   }
 });

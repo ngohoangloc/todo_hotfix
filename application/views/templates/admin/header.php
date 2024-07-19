@@ -27,7 +27,7 @@
     <script src="<?= base_url(); ?>assets/jquery/jquery.min.js"></script>
     <link href="<?= base_url(); ?>assets/jquery/jquery-ui.css" rel="stylesheet" />
     <script src="<?= base_url(); ?>assets/jquery/jquery-ui.js"></script>
-    
+
     <!-- Boostrap -->
     <script src="<?= base_url(); ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -116,8 +116,28 @@
         .form-control {
             border-radius: 0 !important;
         }
+
+        #loading {
+            position: fixed;
+            top:0;
+            left:0;
+            bottom: 0;
+            right: 0;
+            z-index: 10000;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        #loading img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 130px;
+        }
     </style>
 </head>
 
 <body>
+    <div id="loading" >
+        <img src="<?php echo base_url('assets/images/circles-loading.gif'); ?>" alt="Loading...">
+    </div>
     <div class="container-fuild">

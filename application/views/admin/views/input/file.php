@@ -13,6 +13,8 @@ $groupIdEnc = isset($group->id) ? $this->stringencryption->encryptString($group-
 
 $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
 
+$user_in_group = in_array($this->session->userdata("user_id"), explode(",", $group->owners));
+
 ?>
 
 <div class="input-group input-group-table" style="width: 100%;">
@@ -40,7 +42,7 @@ $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
                         $fileUrl = $file->path;
                     }
 
-                    if (!in_array($this->session->userdata("user_id"), explode(",", $group->owners))) {
+                    if (!$user_in_group) {
                         $fileUrl = "assets/images/data-encryption.png";
                     }
 
@@ -48,7 +50,7 @@ $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
 
                     <div class="file_image_field file-image">
 
-                        <?php if (!in_array($this->session->userdata("user_id"), explode(",", $group->owners))) : ?>
+                        <?php if (!$user_in_group) : ?>
                             <img src="<?= base_url($fileUrl) ?>" alt="file_icon">
                         <?php else : ?>
                             <?php if ($file->type == 'jpeg' || $file->type ==  'png' || $file->type == 'jpg') : ?>
@@ -60,7 +62,7 @@ $filePath = "items/file/" . $projectIdEnc . "/" . $groupIdEnc . "/";
                             <?php endif; ?>
                         <?php endif; ?>
 
-                        <div class="file-info" hidden data-file-desc="<?= $file->description ?>" data-file-id="<?= $file->id ?>" data-file-type="<?= $file->type ?>" data-file-upload-date="<?= $file->created_at ?>" data-file-title="<?= $file->title ?>" data-file-path="<?= base_url($fileUrl) ?>"></div>
+                        <div class="file-info" data-test="<?= base_url($fileUrl) ?>"  data-check="<?= $user_in_group; ?>" hidden data-file-desc="<?= $file->description ?>" data-file-id="<?= $file->id ?>" data-file-type="<?= $file->type ?>" data-file-upload-date="<?= $file->created_at ?>" data-file-title="<?= $file->title ?>" data-file-path="<?= base_url($fileUrl) ?>"></div>
 
                     </div>
                     <?php if ($key == 2) break; ?>
